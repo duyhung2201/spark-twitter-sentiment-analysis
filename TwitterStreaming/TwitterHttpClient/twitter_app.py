@@ -6,10 +6,10 @@ import json
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # Replace the values below with yours
-ACCESS_TOKEN = 'YOUR_ACCESS_TOKEN'
-ACCESS_SECRET = 'YOUR_ACCESS_SECRET'
-CONSUMER_KEY = 'YOUR_CONSUMER_KEY'
-CONSUMER_SECRET = 'YOUR_CONSUMER_SECRET'
+ACCESS_TOKEN = '2455225267-2OeMn8aeXvLXgW5f4Y8SmfBA305Jsbocxs2colW'
+ACCESS_SECRET = 'qShVTPlCY4MYpTaBQWsNGwP4LKvdDqOEuuF190499BrlZ'
+CONSUMER_KEY = '3WaQCIqrBhjoSUah4lTjxxkhV'
+CONSUMER_SECRET = 'ONnaKHhZwhZmOlNFCEjDzEHi03Za3V9UwwjPPZzjFOGTYl2uK9'
 my_auth = requests_oauthlib.OAuth1(CONSUMER_KEY, CONSUMER_SECRET,ACCESS_TOKEN, ACCESS_SECRET)
 
 analyzer = SentimentIntensityAnalyzer()
@@ -19,7 +19,7 @@ def process_send_tweets_to_spark(http_resp, tcp_connection):
         try:
             full_tweet = json.loads(line)
             tweet_text = str(full_tweet['text'].encode("utf-8"))
-
+            
             # analysis sentiment score
             sentiment_score = analyzer.polarity_scores(tweet_text)["compound"]
             if sentiment_score >= 0.05:
@@ -45,7 +45,7 @@ def get_tweets():
     query_url = url + '?' + '&'.join([str(t[0]) + '=' + str(t[1]) for t in query_data])
     response = requests.get(query_url, auth=my_auth, stream=True)
     print(query_url, response)
-    
+
     return response
 
 

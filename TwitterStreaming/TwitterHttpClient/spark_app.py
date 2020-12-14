@@ -2,6 +2,7 @@ from pyspark import SparkConf,SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.sql import Row,SQLContext
 import sys
+sys.path.append('/usr/local/lib/python3.7/site-packages')
 import requests
 import re
 
