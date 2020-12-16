@@ -2,7 +2,7 @@
 
 # How it looks
 
-![alt tag](https://raw.githubusercontent.com/ngocjr7/voting-blockchain/master/docs/sample.png)
+![alt tag](https://github.com/duyhung2201/spark-twitter-sentiment-analysis/blob/ngocbh/docs/demo.png?raw=true)
 
 # How to run
 Run by docker
@@ -11,7 +11,7 @@ Run by docker
 docker-compose up
 ```
 
-Run by ```python```
+Or run by ```python```
 ```
 python src\twitter_app.py
 spark-submit --master "local[*]" src\spark_app.py
