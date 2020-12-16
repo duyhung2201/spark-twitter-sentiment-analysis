@@ -1,16 +1,21 @@
-Sentiment Analysis with PySpark
+# Sentiment Analysis with PySpark
 
-cd TwitterStreaming
+# How it looks
 
+![alt tag](https://github.com/duyhung2201/spark-twitter-sentiment-analysis/blob/ngocbh/docs/demo.png?raw=true)
 
-python TwitterHttpClient/twitter_app.py
+# How to run
+Run by docker
 
-open another shell
-<!-- spark-submit TwitterHttpClient/spark_app.py -->
-spark-submit --master "local[4]" TwitterHttpClient/spark_app.py
+```
+docker-compose up
+```
 
-open another shell 
-python HashtagsDashboard/app.py 
+Or run by ```python```
+```
+python src\twitter_app.py
+spark-submit --master "local[*]" src\spark_app.py
+python src\app.py
+```
 
-open web-browser
-http://localhost:5001
+Access ```https://0.0.0.0:9090``` vs Unix user or ```https://127.0.0.1:9090``` vs Window user

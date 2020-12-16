@@ -2,9 +2,11 @@ from pyspark import SparkConf,SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.sql import Row,SQLContext
 import sys
-sys.path.append('/usr/local/lib/python3.7/site-packages')
 import requests
 import re
+
+
+print("Starting spark app...", flush=True)
 
 # create spark configuration
 conf = SparkConf()
@@ -17,7 +19,7 @@ ssc = StreamingContext(sc, 2)
 # setting a checkpoint to allow RDD recovery
 ssc.checkpoint("checkpoint_TwitterApp")
 # read data from port 9009
-dataStream = ssc.socketTextStream("localhost",9009)
+dataStream = ssc.socketTextStream("twitter",5001)
 
 
 def aggregate_tags_count(new_values, total_sum):
@@ -37,7 +39,7 @@ def send_df_to_dashboard(df):
     neu = [p.neu for p in df.select("neu").collect()]
     neg = [p.neg for p in df.select("neg").collect()]
     # initialize and send the data through REST API
-    url = 'http://localhost:5001/updateData'
+    url = 'http://app:9090/updateData'
     request_data = {'label': str(top_tags), 'data_pos': str(pos), 'data_neu': str(neu), 'data_neg': str(neg)}
     response = requests.post(url, data=request_data)
 
@@ -47,7 +49,7 @@ def get_sql_context_instance(spark_context):
     return globals()['sqlContextSingletonInstance']
 
 def process_rdd(time, rdd):
-    print("----------- %s -----------" % str(time))
+    print("----------- %s -----------" % str(time), flush=True)
     try:
         # Get spark sql singleton context from the current context
         sql_context = get_sql_context_instance(rdd.context)
@@ -64,7 +66,7 @@ def process_rdd(time, rdd):
         send_df_to_dashboard(hashtag_counts_df)
     except:
         e = sys.exc_info()[0]
-        print("Error: %s" % e)
+        print("Error: %s" % e, flush=True)
 
 def split_word(line):
     data = list(line.split("||||"))
