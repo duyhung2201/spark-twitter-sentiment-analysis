@@ -19,7 +19,7 @@ ssc = StreamingContext(sc, 2)
 # setting a checkpoint to allow RDD recovery
 ssc.checkpoint("checkpoint_TwitterApp")
 # read data from port 9009
-dataStream = ssc.socketTextStream("0.0.0.0",5001)
+dataStream = ssc.socketTextStream("twitter",5001)
 
 
 def aggregate_tags_count(new_values, total_sum):
@@ -39,7 +39,7 @@ def send_df_to_dashboard(df):
     neu = [p.neu for p in df.select("neu").collect()]
     neg = [p.neg for p in df.select("neg").collect()]
     # initialize and send the data through REST API
-    url = 'http://localhost:8080/updateData'
+    url = 'http://app:9090/updateData'
     request_data = {'label': str(top_tags), 'data_pos': str(pos), 'data_neu': str(neu), 'data_neg': str(neg)}
     response = requests.post(url, data=request_data)
 

@@ -1,7 +1,6 @@
-FROM bde2020/spark-base:3.0.0-hadoop3.2
+FROM bde2020/spark-base:3.0.1-hadoop3.2
 
 COPY . /code
-EXPOSE 5001
 
 WORKDIR /code
 
