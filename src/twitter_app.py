@@ -43,8 +43,25 @@ def process_send_tweets_to_spark(http_resp, tcp_connection):
 
 def get_tweets():
     url = 'https://stream.twitter.com/1.1/statuses/filter.json'
-    # get tweet from @realDonaldTrump
-    query_data = [('language', 'en'), ('follow', '25073877')]
+    # get tweet from @realDonaldTrump 25073877
+    # @twitter 783214
+    # @cnn 759251
+    # @ellen 15846407
+    # @BarackObama 813286
+    # @cnnbrk 428333
+    # @BBCWorld 742143
+    # @BBCBreaking 5402612
+    # @joebiden 939091
+    # @FoxNews 1367531
+    # @elonmusk 44196397
+    # @billgates 50393960 
+    # @nytimes 807095
+    # @washingtonpost 2467791
+    # @ellen 15846407
+    query_data = [('language', 'en'), ('follow', '25073877'), ('follow', '783214'), ('follow', '759251'), \
+        ('follow', '15846407'), ('follow', '813286'), ('follow', '428333'), ('follow', '742143'), \
+        ('follow', '5402612'), ('follow', '939091'), ('follow', '1367531'), ('follow', '44196397'), \
+        ('follow', '50393960'), ('follow', '807095'), ('follow', '2467791'), ('follow', '15846407')]
     query_url = url + '?' + '&'.join([str(t[0]) + '=' + str(t[1]) for t in query_data])
     response = requests.get(query_url, auth=my_auth, stream=True)
     print(query_url, response, flush=True)
