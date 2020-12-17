@@ -58,10 +58,8 @@ def get_tweets():
     # @nytimes 807095
     # @washingtonpost 2467791
     # @ellen 15846407
-    query_data = [('language', 'en'), ('follow', '25073877'), ('follow', '783214'), ('follow', '759251'), \
-        ('follow', '15846407'), ('follow', '813286'), ('follow', '428333'), ('follow', '742143'), \
-        ('follow', '5402612'), ('follow', '939091'), ('follow', '1367531'), ('follow', '44196397'), \
-        ('follow', '50393960'), ('follow', '807095'), ('follow', '2467791'), ('follow', '15846407')]
+    # ,783214,759251,15846407,813286,428333,742143,5402612,939091,1367531,44196397,50393960,807095,2467791,15846407
+    query_data = [('language', 'en'), ('follow', '25073877,783214,759251,15846407,813286,428333,742143,5402612,939091,1367531,44196397,50393960,807095,2467791,15846407')]
     query_url = url + '?' + '&'.join([str(t[0]) + '=' + str(t[1]) for t in query_data])
     response = requests.get(query_url, auth=my_auth, stream=True)
     print(query_url, response, flush=True)
